@@ -81,8 +81,6 @@ nav {
   width: 100%;
 }
 
-/* HERO */
-
 .hero-header {
   text-align: center;
   margin: 85px auto 50px auto;
@@ -194,8 +192,6 @@ nav {
   color: #828486;
 }
 
-/* SKILLS CARDS */
-
 .skills-title {
   text-align: center;
   font-size: 2.5em;
@@ -274,8 +270,6 @@ nav {
   margin-bottom: 7px;
 }
 
-/* PROJECTS SECTION */
-
 .project-card {
   background: #fff;
   border-radius: 15px;
@@ -334,8 +328,6 @@ nav {
   font-size: 1em;
   margin-bottom: 0;
 }
-
-/* WHO SECTION */
 
 .who-section {
   max-width: 1100px;
@@ -429,8 +421,6 @@ nav {
   transform: translateY(-1px);
   box-shadow: 0 4px 16px rgba(36, 56, 80, 0.18);
 }
-
-/* CONTACT CARD (NA HOME) */
 
 .main-contact {
   text-align: center;
@@ -532,8 +522,6 @@ nav {
   color: #5a5b5e;
 }
 
-/* FOOTER */
-
 .footer {
   text-align: left;
   font-size: 1em;
@@ -561,8 +549,6 @@ nav {
   color: #4e4f52;
 }
 
-/* SCROLL PROGRESS */
-
 #scroll-progress {
   position: fixed;
   top: 0;
@@ -574,8 +560,6 @@ nav {
   transition: width 0.08s linear;
 }
 
-/* ANIMATIONS */
-
 .reveal-on-scroll {
   opacity: 0;
   transform: translateY(40px);
@@ -586,8 +570,6 @@ nav {
   opacity: 1;
   transform: translateY(0);
 }
-
-/* RESPONSIVE */
 
 @media (max-width: 800px) {
   .nav-container {
@@ -721,5 +703,47 @@ nav {
 
   .card {
     flex: 0 0 80%;
+  }
+}
+@media (max-width: 600px) {
+  body {
+    text-align: center;
+  }
+
+  .hero-header {
+    margin: 40px auto 35px auto;
+    padding: 0 16px;
+  }
+
+  .hero-header h1,
+  .subtitle,
+  .desc {
+    text-align: center;
+  }
+
+  .cards-grid,
+  .skills-marquee,
+  .who-section,
+  .main-contact {
+    padding: 0 14px;
+  }
+
+  .project-card {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .who-card {
+    align-items: center;
+    text-align: center;
+  }
+
+  .who-text {
+    text-align: center;
+  }
+
+  .footer {
+    align-items: center;
+    text-align: center;
   }
 }
