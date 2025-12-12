@@ -672,11 +672,11 @@ nav {
 .skills-track {
   display: flex;
   gap: 24px;
-  animation: skills-scroll 30s linear infinite;
+  animation: skills-scroll 25s linear infinite;
 }
 
 .card {
-  flex: 0 0 calc(33.333% - 16px); 
+  flex: 0 0 280px;          
   background: #fff;
   border-radius: 16px;
   box-shadow: 0 2px 32px 0 rgba(30,50,80,0.13);
@@ -698,11 +698,12 @@ nav {
 
 @media (max-width: 800px) {
   .skills-track {
-    animation-duration: 12s;
+    animation-duration: 15s;
   }
 
   .card {
     flex: 0 0 80%;
+    margin-right: 8px;
   }
 }
 @media (max-width: 600px) {
