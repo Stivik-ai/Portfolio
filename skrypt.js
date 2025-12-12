@@ -99,3 +99,18 @@ if (contactForm) {
   });
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.querySelector(".skills-track");
+  if (!track) return;
+
+  const cards = Array.from(track.children);
+  if (!cards.length) return;
+
+  if (cards.some(c => c.classList.contains("card-clone"))) return;
+
+  cards.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.classList.add("card-clone");
+    track.appendChild(clone);
+  });
+});
