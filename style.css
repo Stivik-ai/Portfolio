@@ -1,5 +1,6 @@
 
 
+
 *,
 *::before,
 *::after {
@@ -689,7 +690,7 @@ nav {
 
 @keyframes skills-scroll {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(-383%); }
+  100% { transform: translateX(-381%); }
 }
 
 @media (max-width: 800px) {
