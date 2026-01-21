@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Technik Programista | Oficjalny Przewodnik</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Space+Mono&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="style.css" />
+        <style>
+            :root {
+                --bg: #050505;
+                --text: #ffffff;
+                --accent: #f3f3f3;
+                --blue: #2244ff;
+                --gray: #222;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: "Inter", sans-serif;
+                background: var(--bg);
+                color: var(--text);
+                line-height: 1.5;
+                overflow-x: hidden;
+            }
+
+            .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 5%;
+            }
+
+            /* --- TYPOGRAPHY --- */
+            h1,
+            h2,
+            h3 {
+                text-transform: uppercase;
+                font-weight: 900;
+                line-height: 0.85;
+            }
+            .outline {
+                -webkit-text-stroke: 1px var(--text);
+                color: transparent;
+            }
+
+            /* --- HERO --- */
+            .hero {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                border-bottom: 1px solid var(--gray);
+            }
+            .hero h1 {
+                font-size: clamp(4rem, 15vw, 12rem);
+                letter-spacing: -5px;
+            }
+            .hero-meta {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+                margin-top: 50px;
+                font-size: 0.9rem;
+                color: #888;
+            }
+
+            /* --- SECTION GENERIC --- */
+            section {
+                padding: 100px 0;
+                border-bottom: 1px solid var(--gray);
+            }
+            .section-title {
+                font-size: 4rem;
+                margin-bottom: 50px;
+                letter-spacing: -2px;
+            }
+
+            /* --- KWALIFIKACJE --- */
+            .qual-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 50px;
+            }
+            .qual-card {
+                border-left: 4px solid var(--blue);
+                padding-left: 30px;
+            }
+            .qual-card h4 {
+                font-size: 2rem;
+                margin-bottom: 15px;
+                color: var(--blue);
+            }
+
+            /* --- LISTY I TREŚĆ --- */
+            .info-list {
+                list-style: none;
+                margin-top: 30px;
+            }
+            .info-list li {
+                padding: 15px 0;
+                border-bottom: 1px solid var(--gray);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .info-list li:hover {
+                background: #111;
+                padding-left: 10px;
+                transition: 0.3s;
+            }
+
+            /* --- BENTO GRID (SMACZKI) --- */
+            .bento {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+                margin-top: 50px;
+            }
+            .bento-item {
+                background: #111;
+                padding: 30px;
+                border-radius: 0px;
+            }
+            .bento-item.wide {
+                grid-column: span 2;
+                background: var(--blue);
+            }
+
+            /* --- SLANG SECTION --- */
+            .dictionary {
+                font-family: "Space Mono", monospace;
+                font-size: 0.9rem;
+                color: #00ff66;
+            }
+
+            /* --- FOOTER --- */
+            footer {
+                padding: 100px 0;
+                text-align: center;
+                background: var(--text);
+                color: var(--bg);
+            }
+            footer h2 {
+                font-size: clamp(3rem, 10vw, 8rem);
+                margin-bottom: 30px;
+            }
+
+            @media (max-width: 768px) {
+                .qual-grid {
+                    grid-template-columns: 1fr;
+                }
+                .bento {
+                    grid-template-columns: 1fr;
+                }
+                .bento-item.wide {
+                    grid-column: span 1;
+                }
+            }
+            .grade-widget {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                z-index: 1000;
+            }
+
+            #magic-btn {
+                background: rgba(255, 255, 255, 0.1); /* Efekt szkła */
+                backdrop-filter: blur(10px);
+                color: rgb(0, 0, 0);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                padding: 15px 25px;
+                border-radius: 50px;
+                font-family: "Inter", sans-serif;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+
+            #magic-btn:hover {
+                background: var(
+                    --blue
+                ); /* Zmieni się na niebieski z Twojego kodu */
+                border-color: var(--blue);
+                transform: scale(1.05);
+            }
+
+            #grade-response {
+                background: #000;
+                color: #00ff66; /* Neonowy zielony */
+                font-family: "Space Mono", monospace;
+                font-size: 0.8rem;
+                padding: 10px 15px;
+                border-radius: 5px;
+                margin-bottom: 10px;
+                opacity: 0;
+                transform: translateY(10px);
+                transition: all 0.3s ease;
+                border: 1px solid #333;
+                max-width: 250px;
+                text-align: right;
+            }
+
+            #grade-response.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <section class="hero">
+                <p
+                    style="
+                        text-transform: uppercase;
+                        letter-spacing: 5px;
+                        margin-bottom: 20px;
+                    "
+                >
+                    Kodowanie to nowa supermoc
+                </p>
+                <h1>TECHNIK<br /><span class="outline">PROGRAMISTA</span></h1>
+                <div class="hero-meta">
+                    <div>[ STATUS: POSZUKIWANY ]</div>
+                    <div>[ ZAROBKI: $$$$$ ]</div>
+                    <div>[ SEN: OPCJONALNY ]</div>
+                    <div>[ KAWA: NIEZBĘDNA ]</div>
+                </div>
+            </section>
+
+            <section id="about">
+                <h2 class="section-title">01. Co Ty właściwie robisz?</h2>
+                <div class="qual-grid">
+                    <div>
+                        <p style="font-size: 1.5rem; margin-bottom: 30px">
+                            Technik programista to człowiek od wszystkiego, co
+                            ma procesor. Nie tylko piszesz kod, ale projektujesz
+                            systemy, zarządzasz bazami danych i sprawiasz, że
+                            świat cyfrowy nie płonie (zbyt często).
+                        </p>
+                    </div>
+                    <div class="dictionary">
+                        <p>> // SŁOWNIK POJĘĆ:</p>
+                        <p>
+                            > REFAKTORYZACJA: Naprawianie czegoś, co działało,
+                            aż przestanie.
+                        </p>
+                        <p>
+                            > JUNIOR: Człowiek, który boi się usunąć komentarz.
+                        </p>
+                        <p>
+                            > SENIOR: Człowiek, który usuwa 1000 linii kodu i
+                            jest z tego dumny.
+                        </p>
+                        <p>> STACK OVERFLOW: Twoja prawdziwa szkoła.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">02. Ścieżka Walki (Egzaminy)</h2>
+                <div class="qual-grid">
+                    <div class="qual-card">
+                        <h4>INF.03</h4>
+                        <p>
+                            <b
+                                >Tworzenie i administrowanie stronami i
+                                aplikacjami internetowymi.</b
+                            >
+                        </p>
+                        <ul class="info-list">
+                            <li>HTML5 & CSS3 (Robiene ładnych rzeczy)</li>
+                            <li>JavaScript (Robiene dziwnych rzeczy)</li>
+                            <li>PHP & SQL (Magia na zapleczu)</li>
+                            <li>Systemy CMS (WordPress i spółka)</li>
+                        </ul>
+                    </div>
+                    <div class="qual-card">
+                        <h4>INF.04</h4>
+                        <p>
+                            <b
+                                >Projektowanie, programowanie i testowanie
+                                aplikacji.</b
+                            >
+                        </p>
+                        <ul class="info-list">
+                            <li>Programowanie obiektowe (Java, C++, Python)</li>
+                            <li>Aplikacje mobilne (Android/iOS)</li>
+                            <li>
+                                Testowanie oprogramowania (Szukanie dziury w
+                                całym)
+                            </li>
+                            <li>Algorytmika (Matematyka, ale fajna)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section
+                id="hacker-section"
+                style="
+                    position: relative;
+                    height: 600px;
+                    overflow: hidden;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+                    border-bottom: 1px solid var(--gray);
+                    background-color: #000;
+                "
+            >
+                <canvas
+                    id="matrix-canvas"
+                    style="
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                    "
+                ></canvas>
+                <div style="position: relative; z-index: 10; color: white">
+                    <h2
+                        style="
+                            font-size: clamp(2rem, 8vw, 6rem);
+                            margin-bottom: 30px;
+                            line-height: 1;
+                            text-shadow: 0 0 15px var(--accent);
+                        "
+                    >
+                        <span
+                            class="outline"
+                            style="
+                                -webkit-text-stroke: 1px var(--accent);
+                                color: transparent;
+                            "
+                            >Poczuj się</span
+                        ><br />
+                        JAK
+                        <span style="color: var(--accent)">PROGRAMISTA!</span>
+                    </h2>
+                    <p
+                        style="
+                            font-size: 1.2rem;
+                            margin-bottom: 40px;
+                            color: #888;
+                        "
+                    >
+                        Poznaj prawdziwe emocje: od czystej radości po bezdenną
+                        frustrację. Jedno kliknięcie dzieli Cię od cyfrowej
+                        przygody.
+                    </p>
+                    <a href="loading.html" class="hacker-portal-btn">
+                        <span
+                            class="btn-glitch-content"
+                            data-text="INICJUJ_DOSTĘP"
+                            >WEJDŹ</span
+                        >
+                        <span class="btn-corner top-left"></span>
+                        <span class="btn-corner top-right"></span>
+                        <span class="btn-corner bottom-left"></span>
+                        <span class="btn-corner bottom-right"></span>
+                        <div class="btn-noise"></div>
+                    </a>
+                </div>
+            </section>
+            <section>
+                <h2 class="section-title">03. Dlaczego warto?</h2>
+                <div class="bento">
+                    <div class="bento-item wide">
+                        <h3>Pieniądze</h3>
+                        <p>
+                            Zaczynasz jako Junior z przyzwoitą stawką, a
+                            kończysz jako Senior, który zastanawia się, czy
+                            kupić trzecie mieszkanie, czy kolejną klawiaturę
+                            mechaniczną za 2000 zł.
+                        </p>
+                    </div>
+                    <div class="bento-item">
+                        <h3>Home Office</h3>
+                        <p>
+                            Praca w piżamie to nie mit. To standard. Twoim
+                            jedynym wrogiem jest kurier dzwoniący podczas Daily.
+                        </p>
+                    </div>
+                    <div class="bento-item">
+                        <h3>Prestiż</h3>
+                        <p>
+                            Kiedy mówisz, że jesteś programistą, ludzie myślą,
+                            że potrafisz zhakować ich Facebooka. Nie wyprowadzaj
+                            ich z błędu.
+                        </p>
+                    </div>
+                    <div class="bento-item wide">
+                        <h3>Ciągły Rozwój</h3>
+                        <p>
+                            W tej branży nie da się nudzić. Każdego dnia
+                            wychodzi nowy framework w JS, którego musisz się
+                            nauczyć, żeby nie wypaść z obiegu.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="section-title">04. Co musisz mieć?</h2>
+                <ul class="info-list">
+                    <li>
+                        <span>Logiczne myślenie</span>
+                        <span>[ OBOWIĄZKOWE ]</span>
+                    </li>
+                    <li>
+                        <span>Cierpliwość do błędów</span>
+                        <span>[ POZIOM: TYBETAŃSKI MNICH ]</span>
+                    </li>
+                    <li>
+                        <span>Wysoki poziom języka angielskiego</span>
+                        <span>[ ŻEBY ROZUMIEĆ BŁĘDY ]</span>
+                    </li>
+                    <li>
+                        <span>Komputer</span>
+                        <span>[ NAJLEPIEJ Z DWOMA MONITORAMI ]</span>
+                    </li>
+                    <li>
+                        <span
+                            >Umiejętność wygooglowania wszystkiego (czyt.
+                            umiejętności używania AI)</span
+                        >
+                        <span>[ KLUCZOWA UMIEJĘTNOŚĆ ]</span>
+                    </li>
+                </ul>
+            </section>
+        </div>
+
+        <footer>
+            <div class="container">
+                <h2>PRZESTAŃ SCROLLOWAĆ<br />ZACZNIJ KODOWAĆ.</h2>
+                <p>
+                    Zawód Technik Programista czeka na Twój pierwszy `Hello
+                    World`.
+                </p>
+                <br /><br />
+                <p style="font-size: 0.7rem; opacity: 0.5">©2026 Stiv</p>
+            </div>
+        </footer>
+        <div class="grade-widget">
+            <p id="grade-response"></p>
+            <button id="magic-btn">Czy dostanę 6?</button>
+        </div>
+        <script src="script.js"></script>
+        <script>
+            const canvas = document.getElementById("matrix-canvas");
+            const ctx = canvas.getContext("2d");
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const katakana =
+                "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン";
+            const latin = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const nums = "0123456789";
+            const alphabet = katakana + latin + nums;
+
+            const fontSize = 16;
+            const columns = canvas.width / fontSize;
+
+            const drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops[i] = 1;
+            }
+
+            function drawMatrix() {
+                ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = "#00ff66"; // Zielony kolor tekstu
+                ctx.font = fontSize + "px monospace";
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = alphabet.charAt(
+                        Math.floor(Math.random() * alphabet.length),
+                    );
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (
+                        drops[i] * fontSize > canvas.height &&
+                        Math.random() > 0.975
+                    ) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            setInterval(drawMatrix, 35);
+
+            window.addEventListener("resize", () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                const newColumns = canvas.width / fontSize;
+                drops.length = Math.floor(newColumns);
+                for (let i = 0; i < drops.length; i++) {
+                    if (drops[i] === undefined) drops[i] = 1;
+                }
+            });
+
+            const hackerBtn = document.querySelector(
+                "#hacker-section .cta-btn span",
+            );
+            hackerBtn.parentNode.addEventListener("mouseenter", () => {
+                hackerBtn.style.transform = "rotate(5deg)";
+            });
+            hackerBtn.parentNode.addEventListener("mouseleave", () => {
+                hackerBtn.style.transform = "rotate(0deg)";
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pl">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Wykryto Aktywność!</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: #000;
+                color: #00ff66; /* Neon zielony */
+                font-family: "Space Mono", monospace;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                text-align: center;
+                overflow: hidden;
+            }
+
+            .terminal-output {
+                border: 2px solid #00ff66;
+                padding: 30px 40px;
+                max-width: 800px;
+                box-shadow: 0 0 20px rgba(0, 255, 102, 0.5);
+                animation: glow 1.5s infinite alternate;
+                position: relative;
+                margin-bottom: 20px;
+            }
+
+            .terminal-output h1 {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+                text-transform: uppercase;
+            }
+
+            .terminal-output p {
+                font-size: 1.1rem;
+                margin-bottom: 15px;
+                line-height: 1.6;
+            }
+
+            .cursor {
+                display: inline-block;
+                width: 10px;
+                height: 20px;
+                background-color: #00ff66;
+                animation: blink 1s step-end infinite;
+            }
+
+            @keyframes blink {
+                from,
+                to {
+                    background-color: transparent;
+                }
+                50% {
+                    background-color: #00ff66;
+                }
+            }
+
+            @keyframes glow {
+                from {
+                    box-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+                }
+                to {
+                    box-shadow: 0 0 30px rgba(0, 255, 102, 0.8);
+                }
+            }
+
+            .counter {
+                font-size: 3rem;
+                font-weight: bold;
+                color: #00ff66;
+                margin-top: 40px;
+                position: relative;
+                z-index: 10;
+            }
+
+            /* Rickroll styles (domyślnie ukryte) */
+            #rickroll-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: black;
+                display: none; /* Domyślnie ukryte */
+                justify-content: center;
+                align-items: center;
+                z-index: 9999;
+            }
+            #rickroll-overlay iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+        </style>
+    </head>
+    <body>
+    
+        <div class="terminal-output">
+            <h1>> WYKRYTO AKTYWNOŚĆ UŻYTKOWNIKA <</h1>
+            <p>SYSTEM INICJUJE PROTOKOŁ PROGRAMISTYCZNY...</p>
+            <p>
+                Proszę o dwukrotne wciśnięcie klawisza
+                <span style="color: yellow">SPACJI</span> w celu potwierdzenia.
+            </p>
+            <p>STATUS: CZEKANIE NA INPUT<span class="cursor"></span></p>
+        </div>
+        <div class="counter" id="space-counter">0</div>
+            <div style="margin-top: 20px;">
+    <a href="index.html" id="back-btn" class="cyber-button" style="border-color: #555; color: #888; text-decoration: none;">
+        ⬅ POWRÓT DO STRONY GŁÓWNEJ
+    </a>
+
+        <div id="rickroll-overlay"></div>
+
+        <script>
+            let spacePressCount = 0;
+            const spaceCounter = document.getElementById("space-counter");
+            const rickrollOverlay = document.getElementById("rickroll-overlay");
+
+            document.addEventListener("keydown", (event) => {
+                if (event.code === "Space") {
+                    event.preventDefault();
+                    spacePressCount++;
+                    spaceCounter.textContent = spacePressCount;
+
+                    if (spacePressCount >= 2) {
+                        window.location.href =
+                            "https://www.youtube.com/watch?v=xvFZjo5PgG0";
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>

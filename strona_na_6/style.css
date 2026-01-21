@@ -1,0 +1,78 @@
+.hacker-portal-btn {
+    position: relative;
+    display: inline-block;
+    padding: 25px 60px;
+    background: rgba(0, 255, 102, 0.05);
+    color: #00ff66;
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-weight: bold;
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+    border: 1px solid rgba(0, 255, 102, 0.3);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+/* Narożniki celownika */
+.btn-corner {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 2px solid #00ff66;
+    transition: all 0.3s ease;
+}
+
+.top-left { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+.top-right { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+.bottom-left { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+.bottom-right { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+/* Efekt po najechaniu */
+.hacker-portal-btn:hover {
+    background: rgba(0, 255, 102, 0.15);
+    box-shadow: 0 0 30px rgba(0, 255, 102, 0.4);
+    border-color: #00ff66;
+    transform: scale(1.05);
+}
+
+.hacker-portal-btn:hover .btn-corner {
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+}
+
+/* Efekt Glitcha na tekście przycisku */
+.btn-glitch-content {
+    position: relative;
+}
+
+.hacker-portal-btn:hover .btn-glitch-content::before {
+    content: attr(data-text);
+    position: absolute;
+    left: -2px;
+    text-shadow: 2px 0 #ff00c1;
+    background: transparent;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: noise-anim 2s infinite linear alternate-reverse;
+}
+
+@keyframes noise-anim {
+    0% { clip: rect(51px, 9999px, 28px, 0); }
+    20% { clip: rect(70px, 9999px, 81px, 0); }
+    40% { clip: rect(32px, 9999px, 14px, 0); }
+    60% { clip: rect(10px, 9999px, 91px, 0); }
+    80% { clip: rect(85px, 9999px, 5px, 0); }
+    100% { clip: rect(45px, 9999px, 60px, 0); }
+}
+
+/* Szum w tle przycisku */
+.btn-noise {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Static_Noise.gif');
+    opacity: 0.03;
+    pointer-events: none;
+}
